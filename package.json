@@ -1,0 +1,42 @@
+{
+  "name": "server-components",
+  "version": "1.0.0",
+  "main": "expo/AppEntry.js",
+  "scripts": {
+    "dev": "waku dev",
+    "build": "waku build",
+    "start": "waku start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.2.7",
+    "@expo/metro-runtime": "~3.2.3",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "babel-plugin-python": "^1.0.13",
+    "babel-plugin-transform-commonjs": "https://github.com/soIu/babel-plugin-transform-commonjs/archive/refs/heads/master.tar.gz",
+    "cookie": "^0.6.0",
+    "expo": "~51.0.28",
+    "expo-status-bar": "~1.12.1",
+    "module-alias": "^2.2.3",
+    "pyrex": "^1.0.11",
+    "react": "^19.0.0-beta-4508873393-20240430",
+    "react-dom": "^19.0.0-beta-4508873393-20240430",
+    "react-native": "0.74.5",
+    "react-native-web": "~0.19.10",
+    "react-server-dom-webpack": "^19.0.0-beta-4508873393-20240430",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.5.4",
+    "vite-plugin-commonjs": "^0.10.1",
+    "waku": "^0.21.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}
