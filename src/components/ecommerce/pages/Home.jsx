@@ -1,4 +1,5 @@
 'use client';
+import { Suspense } from 'react';
 import { TouchableOpacity as Button } from "react-native";
 import SlidersPage from "../components/SlidersPage";
 import SearchInput from "../components/SearchInput";
@@ -36,7 +37,9 @@ export default function Home (){
       </div>
       <SlidersPage />
       <SearchInput style={{marginTop: -18}} onFocus={() => navigate('/search')}/>
-      <IconProduct />
+      {/*<Suspense>
+        {IconProduct()}
+      </Suspense>*/}
       <div className="bg-[#9AC6C5] w-full h-[350px] flex items-center justify-evenly">
         <div>
           <div>

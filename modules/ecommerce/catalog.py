@@ -1,6 +1,7 @@
 from orm import models, fields
 
 class ProductCatalog(models.Model):
+    _name = 'product.catalog'
 
     name = fields.Char(string="Catalog Name")
     description = fields.Char("Catalog Description")
