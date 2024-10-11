@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import IconProduct from "../components/IconProduct";
 import ProductCard from "../components/ProductCard";
 import SearchInputHeader from "../components/SearchInputHeader";
@@ -7,7 +8,9 @@ export default function ProductPageList (){
     return(
         <>
             <SearchInputHeader />
-            <IconProduct />
+            <Suspense>
+              {IconProduct()}
+            </Suspense>
             <div>
                 <div className="w-full h-[2px] my-5 bg-slate-600"></div>
                 <div className="flex items-center w-full">

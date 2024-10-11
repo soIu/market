@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { defineConfig } from 'vite'
+import { defineConfig, transformWithEsbuild } from 'vite'
 import react from '@vitejs/plugin-react'
 //import commonjs from 'vite-plugin-commonjs'
 
@@ -24,6 +24,19 @@ moduleAlias();*/
 export default defineConfig({
   esbuild: false,
   plugins: [
+    {
+      name: 'treat-js-files-as-jsx',
+      async transform(code, id) {
+        if (!id.match(/src\/.*\.js$/))  return null
+
+        // Use the exposed transform from vite, instead of directly
+        // transforming with esbuild
+        return transformWithEsbuild(code, id, {
+          loader: 'jsx',
+          jsx: 'automatic',
+        })
+      },
+    },
     react({
       'babel': {
         ignore: [],
@@ -34,5 +47,12 @@ export default defineConfig({
   ],
   resolve: {
     alias: {'react-native': 'react-native-web', orm: path.resolve(__dirname, './orm/')},
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      loader: {
+        '.js': 'jsx',
+      },
+    },
   },
 })
