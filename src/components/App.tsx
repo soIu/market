@@ -1,11 +1,26 @@
-import utils from '../utils';
 import Home from './Home';
 import Dashboard from './dashboard/App';
 
+import utils from '../utils';
+import modules from '../../modules';
+import * as orm from '../../orm';
+modules;
+
+process.on('uncaughtException', (error) => console.error(error));
+
+const wait_tasks = orm.data.load();
+
 const App = async ({ name }: { name: string }) => {
+  await wait_tasks;
   return (
     <html>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="msapplication-tap-highlight" content="no"/>
         <title>{utils.getTitle()}</title>
       </head>
       <body>
