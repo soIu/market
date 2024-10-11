@@ -1,5 +1,5 @@
 import utils from '../utils';
-import Home from './Home';
+import Home from './ecommerce/Home';
 import Dashboard from './dashboard/App';
 
 const App = async ({ name }: { name: string }) => {
