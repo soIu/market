@@ -1,7 +1,7 @@
 import { TouchableOpacity as Button } from "react-native";
 import SearchInputHeader from "../components/SearchInputHeader";
 import SlidersPage from "../components/SlidersPage";
-export default function ProductPage (){
+export default function FoodAndDrink (){
     return(
         <>
             <SearchInputHeader/>

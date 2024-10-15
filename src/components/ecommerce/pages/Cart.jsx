@@ -2,6 +2,7 @@ import { TouchableOpacity as Button } from "react-native";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import Loading from "../components/Loading";
 export default function Cart (){
     const [num, setNum] = React.useState(0)
     function sumMin(){
@@ -92,6 +93,7 @@ export default function Cart (){
                     </Button>
                 </div>
             </div>
+            <Loading />
         </div>
     )
 }

@@ -6,11 +6,12 @@ import SearchInput from "../components/SearchInput";
 import IconProduct from "../components/IconProduct";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-
+import SkeletonIconProduct from '../components/SkeletonIconProduct';
+import Loading from '../components/Loading';
 export default function Home (){
   const navigate = useNavigate();
   return(
-    <div className="h-max overflow-x-hidden">
+    <div className="h-max overflow-x-hidden relative">
       <div className="bg-[#FF6000] w-screen h-[106px]">
         <div className="flex flex-row items-center justify-between pt-14 pb-4 px-3">
           <div className="w-[188px] h-[32px]">
@@ -37,7 +38,7 @@ export default function Home (){
       </div>
       <SlidersPage />
       <SearchInput style={{marginTop: -18}} onFocus={() => navigate('/search')}/>
-      <Suspense>
+      <Suspense fallback={<SkeletonIconProduct/>}>
         {IconProduct()}
       </Suspense>
       <div className="bg-[#9AC6C5] w-full h-[350px] flex items-center justify-evenly">
@@ -79,6 +80,7 @@ export default function Home (){
       </div>
       <div className="w-full h-[90px]"></div>
       <Navbar />
+      {/* <Loading/> */}
     </div>
   )
 }   
