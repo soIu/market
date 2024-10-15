@@ -1,6 +1,7 @@
 import { TouchableOpacity as Button } from 'react-native'
 import ProductCard from '../components/ProductCard'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../components/Loading'
 export default function Wishlist() {
     const navigate = useNavigate()
     return(
@@ -20,12 +21,13 @@ export default function Wishlist() {
             </div>
             <div className="flex justify-center">
                 <div className="grid grid-cols-2 gap-10">
+                    {/* <ProductCard />
                     <ProductCard />
                     <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
+                    <ProductCard /> */}
                 </div>
             </div>
+            <Loading />
         </>
     )
 }

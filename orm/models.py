@@ -9,8 +9,6 @@ class Model:
     _name = 'base.base'
     _is_env = False
 
-    id = fields.Char(string="ID (UUID)", required=True)
-
     @property
     def ids(self):
         return [value.id for value in self._values]
@@ -29,14 +27,20 @@ class Model:
         self._values = []
         self._db_worker = self.env[self._name]._db_worker
         self._table_name = self._name.split('.').join('_')
-        for key in Object.getOwnPropertyNames(self):
+        self._fields.id = fields.Char(string="ID (UUID)", required=True)
+        self._fields.id.name = 'id'
+        for key in Object.getOwnPropertyNames(self.constructor.prototype):
+            if key == 'id':
+                del self[key]
+                continue
             field = self[key]
             if not isinstance(field, fields.Field): continue
             field.name = key
             self._fields[key] = field
             del self[key]
-            Object.defineProperty(self, field, {'get': lambda: self._getattr(field), 'set': lambda value: self._setattr(field, value)})
+            Object.defineProperty(self, key, {'get': lambda: self._getattr(key), 'set': lambda value: self._setattr(key, value)})
             if self._is_env and field.index and field.name != 'id': self._db_worker.createIndex(field)
+        Object.defineProperty(self, 'id', {'get': lambda: self._getattr('id'), 'set': lambda value: self._setattr('id', value)})
 
     def __len__(self):
         return len(self._values)
@@ -44,15 +48,16 @@ class Model:
     @property
     def _is_singleton(self):
         if self._values.length == 1: return True
+        return False
 
     def _getattr(self, field):
-        if not self._values: raise new (Error('Expected singleton, but instead got an empty recordset'))
+        if not self._values.length: raise new (Error('Expected singleton, but instead got an empty recordset'))
         if not self._is_singleton: raise new (Error('Expected singleton, but instead got a set of records'))
-        if field == 'id': self._values[0].id
+        if field == 'id': return self._values[0].id
         return self._values[0].data[field]
 
     def _setattr(self, field, value):
-        if not self._values: raise new (Error('Expected singleton, but instead got an empty recordset'))
+        if not self._values.length: raise new (Error('Expected singleton, but instead got an empty recordset'))
         if not self._is_singleton: raise new (Error('Expected singleton, but instead got a set of records'))
         if field == 'id': raise new (Error('Cannot set ID'))
         self._values[0].data[field] = value
@@ -87,7 +92,7 @@ class Model:
     async def write(self, values):
         if not values:
             promises = []
-            for record in self:
+            for record in iter(self):
                 promises.push(record.write(values=record._values[0].data))
             await Promise.all(promises)
             return self
@@ -138,6 +143,20 @@ class Model:
         delete_from = self.env[self._name]._db_orm.delete(self.env[self._name]._db_orm_table)
         await self._exec(delete_from.where(expressions.inArray(self.env[self._name]._db_orm_table.id, ids)).toSQL())
         return None
+
+    def map(self, fn):
+        results = []
+        for value in self._values:
+            results.push(fn(self._new(value)))
+        return results
+
+    def toJSON(self):
+        if not self.length: return None
+        values = []
+        for record in iter(self):
+            values.push(Object.assign({'id': record.id}, record._values))
+        if self.length == 1: return values[0]
+        return values
 
 def __iter__():
     #self = None

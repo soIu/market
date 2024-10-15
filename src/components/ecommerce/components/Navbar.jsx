@@ -10,10 +10,10 @@ export default function Navbar (){
                 <Button onPress={() => navigate('/')}>
                     <img src={require('../img/HomeIcon.svg')} alt="" />
                 </Button>
-                <Button onPress={() => navigate('/product')}>
+                <Button onPress={() => navigate('/foodAndDrink')}>
                     <img src={require('../img/FoodIcon.svg')} alt="" />
                 </Button>
-                <Button onPress={() => navigate('/listProduct')}>
+                <Button onPress={() => navigate('/categories')}>
                     <img src={require('../img/CategoriesIcon.svg')} alt="" />
                 </Button>
                 <Button onPress={() => navigate('/wishlist')}>

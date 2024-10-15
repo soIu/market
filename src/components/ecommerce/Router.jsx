@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from "react";
+import { useEffect } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -9,8 +10,8 @@ import '../../output.css';
 import Home from "./pages/Home";
 import SearchPage from "./pages/SearchPage";
 import Cart from "./pages/Cart";
-import ProductPage from "./pages/Food&Drink";
-import ProductPageList from "./pages/Categories";
+import FoodAndDrink from "./pages/Food&Drink";
+import Categories from "./pages/Categories";
 import Transaction from "./pages/Transaction";
 import ProductPopUp from "./components/ProductPopUp";
 import TransactionDayDetail from "./components/TransactionDayDetail";
@@ -20,6 +21,12 @@ import Profile from "./pages/Profile";
 import DetailProfile from "./pages/DetailProfile";
 import ChangePin from "./pages/ChangePin";
 import { Platform, TouchableOpacity } from "react-native";
+import { Provider } from "react-redux";
+import { store } from "../../redux/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../redux/reducers/loading";
 
 if (Platform.OS === 'web') {
   const originalRender = TouchableOpacity.type.render;
@@ -29,11 +36,24 @@ if (Platform.OS === 'web') {
 }
 
 if (!TouchableOpacity.defaultProps) TouchableOpacity.defaultProps = {};
-console.log(TouchableOpacity);
 TouchableOpacity.defaultProps.delayPressIn = 0;
 //TouchableOpacity.defaultProps.delayPressOut = 1000;
 
+// const loading = useSelector((state) => state.loading.loading)
+
+// console.log(loading)
+function PersistLoaded(props) {
+  const dispatch = useDispatch();
+  const loaded = !!props.loaded;
+  console.log(loaded)
+  useEffect(() => {
+    dispatch(setLoading(loaded))
+  },[loaded])
+  return props.children;
+}
+
 export default function Router(props) {
+  const persistor = persistStore(store);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -44,15 +64,15 @@ export default function Router(props) {
       element: <SearchPage/>,
     },
     {
-      path: "/product",
-      element: <ProductPage/>,
+      path: "/foodAndDrink",
+      element: <FoodAndDrink/>,
     },
     {
-      path: "/listProduct",
-      element: <ProductPageList/>,
+      path: "/categories",
+      element: <Categories/>,
     },
     {
-      path: "/payment",
+      path: "/product/:id",
       element: <ProductPopUp/>,
     },
     {
@@ -88,5 +108,14 @@ export default function Router(props) {
       element: <ChangePin/>,
     }
   ]);
-  return <RouterProvider router={router} />
+  const app = <RouterProvider router={router}/>;
+  return (
+      <Provider store={store}>
+          <PersistGate persistor={persistor} loading={<PersistLoaded>{app}</PersistLoaded>}>
+            <PersistLoaded loaded>
+              {app}
+            </PersistLoaded>
+          </PersistGate>
+      </Provider>
+  ) 
 }

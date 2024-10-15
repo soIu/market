@@ -1,14 +1,19 @@
+'use client'
 import { Suspense } from 'react';
 import IconProduct from "../components/IconProduct";
 import ProductCard from "../components/ProductCard";
+import SkeletonProductCard from '../components/SkeletonProductCard';
 import SearchInputHeader from "../components/SearchInputHeader";
+import { useNavigate } from 'react-router-dom';
 import { TouchableOpacity as Button } from "react-native";
+import SkeletonIconProduct from '../components/SkeletonIconProduct';
 
-export default function ProductPageList (){
+export default function Categories (){
+    const navigate = useNavigate();
     return(
         <>
             <SearchInputHeader />
-            <Suspense>
+            <Suspense fallback={<SkeletonIconProduct />}>
               {IconProduct()}
             </Suspense>
             <div>
@@ -37,10 +42,9 @@ export default function ProductPageList (){
             </div>
             <div className="flex justify-center">
                 <div className="grid grid-cols-2 gap-10">
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
+                    <Suspense fallback={<SkeletonProductCard /> }>
+                        {ProductCard()}
+                    </Suspense>
                 </div>
             </div>
         </>
