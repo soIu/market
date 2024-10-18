@@ -11,7 +11,7 @@ const products = await models.env['product.product'].browse(id);
         if(product.id === id) {
           return(
             <>
-              <div className="w-full h-full bg-white">
+              <div key={product.id} className="w-full h-full bg-white">
                 <div className="p-[16px]">
                   <div className="w-[35px] h-[35px] bg-[#ededed] rounded-full flex items-center justify-center">
                     {/* <Button> */}
