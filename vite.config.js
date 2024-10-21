@@ -22,6 +22,7 @@ moduleAlias();*/
 //require('@babel/register')({plugins, ignore: []});
 
 export default defineConfig({
+  server: {watch: {ignored: ['**/database/data']}},
   esbuild: false,
   plugins: [
     react({
