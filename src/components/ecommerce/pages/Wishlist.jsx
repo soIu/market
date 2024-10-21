@@ -1,8 +1,15 @@
+'use client'
 import { TouchableOpacity as Button } from 'react-native'
 import ProductCard from '../components/ProductCard'
 import { useNavigate } from 'react-router-dom'
+import { Suspense } from 'react'
 import Loading from '../components/Loading'
+import ProductCardWishlist from '../components/ProductCardWishlist'
+import SkeletonProductCard from '../components/SkeletonProductCard'
+import { useSelector } from 'react-redux'
 export default function Wishlist() {
+    const ids = useSelector(state => state.wishlist.wishlist)
+    console.log(ids)
     const navigate = useNavigate()
     return(
         <>
@@ -20,14 +27,12 @@ export default function Wishlist() {
                 </Button>
             </div>
             <div className="flex justify-center">
-                <div className="grid grid-cols-2 gap-10">
-                    {/* <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard /> */}
+                <div className={"grid grid-cols-2 gap-10"}>
+                    <Suspense fallback={<SkeletonProductCard />}>
+                        {ProductCardWishlist(ids)}
+                    </Suspense>
                 </div>
             </div>
-            <Loading />
         </>
     )
 }

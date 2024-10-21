@@ -39,76 +39,76 @@ if (!TouchableOpacity.defaultProps) TouchableOpacity.defaultProps = {};
 TouchableOpacity.defaultProps.delayPressIn = 0;
 //TouchableOpacity.defaultProps.delayPressOut = 1000;
 
-// const loading = useSelector((state) => state.loading.loading)
+if (React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE) React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE.getStackAddendum = () => '';
 
-// console.log(loading)
 function PersistLoaded(props) {
   const dispatch = useDispatch();
   const loaded = !!props.loaded;
-  console.log(loaded)
+  // console.log(loaded)
   useEffect(() => {
     dispatch(setLoading(loaded))
-  },[loaded])
+  }, [loaded])
   return props.children;
 }
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home/>,
+  },
+  {
+    path: "/search",
+    element: <SearchPage/>,
+  },
+  {
+    path: "/foodAndDrink",
+    element: <FoodAndDrink/>,
+  },
+  {
+    path: "/categories",
+    element: <Categories/>,
+  },
+  {
+    path: "/product/:id",
+    element: <ProductPopUp/>,
+  },
+  {
+    path: "/cart",
+    element: <Cart/>,
+  },
+  {
+    path: "/transaction",
+    element: <Transaction/>,
+  },
+  {
+    path: "/wishlist",
+    element: <Wishlist/>,
+  },
+  {
+    path: "/transactionDayDetail",
+    element: <TransactionDayDetail/>,
+  },
+  {
+    path: "/transactionMonthDetail",
+    element: <TransactionMonthDetail/>,
+  },
+  {
+    path: "/profile",
+    element: <Profile/>,
+  },
+  {
+    path: "/detailProfile",
+    element: <DetailProfile/>,
+  },
+  {
+    path: "/changePin",
+    element: <ChangePin/>,
+  }
+]);
+const app = <RouterProvider router={router}/>;
+
 export default function Router(props) {
   const persistor = persistStore(store);
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Home/>,
-    },
-    {
-      path: "/search",
-      element: <SearchPage/>,
-    },
-    {
-      path: "/foodAndDrink",
-      element: <FoodAndDrink/>,
-    },
-    {
-      path: "/categories",
-      element: <Categories/>,
-    },
-    {
-      path: "/product/:id",
-      element: <ProductPopUp/>,
-    },
-    {
-      path: "/cart",
-      element: <Cart/>,
-    },
-    {
-      path: "/transaction",
-      element: <Transaction/>,
-    },
-    {
-      path: "/wishlist",
-      element: <Wishlist/>,
-    },
-    {
-      path: "/transactionDayDetail",
-      element: <TransactionDayDetail/>,
-    },
-    {
-      path: "/transactionMonthDetail",
-      element: <TransactionMonthDetail/>,
-    },
-    {
-      path: "/profile",
-      element: <Profile/>,
-    },
-    {
-      path: "/detailProfile",
-      element: <DetailProfile/>,
-    },
-    {
-      path: "/changePin",
-      element: <ChangePin/>,
-    }
-  ]);
-  const app = <RouterProvider router={router}/>;
   return (
       <Provider store={store}>
           <PersistGate persistor={persistor} loading={<PersistLoaded>{app}</PersistLoaded>}>
