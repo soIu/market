@@ -29,6 +29,7 @@
     "js-sha256": "^0.11.0",
     "module-alias": "^2.2.3",
     "orm": "file:orm",
+    "pg-gateway": "^0.3.0-beta.3",
     "pyrex": "^1.0.11",
     "react": "^19.0.0-beta-4508873393-20240430",
     "react-dom": "^19.0.0-beta-4508873393-20240430",
