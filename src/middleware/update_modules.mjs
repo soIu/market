@@ -1,5 +1,14 @@
 import path from 'node:path';
 import fs from 'node:fs';
+import { tmpdir } from 'node:os';
+import { globSync } from 'glob';
+
+for (let file of globSync('*-cache-*', {cwd: tmpdir()})) {
+  try {
+    fs.rmSync(path.join(tmpdir(), file));
+  }
+  catch (error) {}
+}
 
 const server_modules = [];
 const client_modules = [];

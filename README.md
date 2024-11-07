@@ -1,5 +1,7 @@
 # Solu Framework
-A full featured isomorphic framework using Expo/React Server Components (waiting for a beta or published example from [EvanBacon](https://github.com/EvanBacon), for now we will use standard [RNW](https://necolas.github.io/react-native-web/) and [Waku](https://github.com/dai-shi/waku))
+Solu is a full featured isomorphic framework, under the hood we use:
+- The [new](https://expo.dev/changelog/2024/10-24-sdk-52-beta#expo-router) Expo React Server Components or
+- [Waku](https://github.com/dai-shi/waku) and plain [RNW](https://necolas.github.io/react-native-web/)
 
 # Purpose of this project
 - Replacing or making an alternative to Odoo and Python's (2.7-3.2) synchronous, I/O blocking design with a better and leaner alternative that hopefully supports full decentralized/multi-clustered design.
