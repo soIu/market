@@ -7,7 +7,7 @@ import * as orm from '../../orm';
 
 process.on('uncaughtException', (error) => console.error(error));
 
-const wait_tasks = orm.data.load();
+const wait_tasks = orm.data.load().then(() => modules);
 
 const App = async ({ name }: { name: string }) => {
   await wait_tasks;

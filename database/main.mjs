@@ -7,7 +7,7 @@ import nodeEndpoint from 'comlink/dist/esm/node-adapter.mjs';
 
 //const dirname = path.dirname(require.resolve('./worker.js'));
 
-const dirname = typeof __dirname === 'undefined' ? path.dirname(require.resolve('./worker.js')) : eval('__dirname');
+const dirname = typeof __dirname === 'undefined' ? path.dirname(require.resolve('./worker.js')) : path.join(eval('__dirname'), '../database');
 
 export function createLocalWorker(table) {
   if (!(fs.existsSync(path.join(dirname, './data/')))) fs.mkdirSync(path.join(dirname, './data/'));
