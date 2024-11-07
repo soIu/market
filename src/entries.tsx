@@ -3,6 +3,8 @@ import { defineEntries } from 'waku/server';
 
 const App = lazy(() => import('./components/App.js'));
 
+if (process.env.PG_GATEWAY_PORT) import('../database/server.mjs');
+
 const plugins = [
   'python',
   ["module-resolver", {

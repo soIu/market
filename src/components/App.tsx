@@ -5,8 +5,6 @@ import utils from '../utils';
 import modules from '../../modules';
 import * as orm from '../../orm';
 
-if (modules && process.env.PG_GATEWAY_PORT) import('../../database/server.mjs');
-
 process.on('uncaughtException', (error) => console.error(error));
 
 const wait_tasks = orm.data.load();
