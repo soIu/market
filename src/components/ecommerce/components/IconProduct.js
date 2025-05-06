@@ -4,9 +4,7 @@ import { models } from 'orm';
 
 export default async function IconProduct () {
   'use server';
-  // console.log('halo dari verrrr');
-  const catalogs = await models.env['product.catalog'].search([])
-  // console.log(catalogs.map.toString())
+  const catalogs = await models.env['product.catalog'].search([]);
 
   return (
     <div className="flex gap-4 px-10 pt-7 pb-10 overflow-scroll">
